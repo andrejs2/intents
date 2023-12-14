@@ -15,14 +15,14 @@ responses:
         {% endif %}
 
       someone_yesno: |
-        {% if query.matched %}
+        {% if query.matched: %}
           Da
-        {% else %}
+        {% else: %}
           Ne,
-          {% if state.attributes.get("untranslated_state") == "not_home" %}
+          {% if state.attributes.get("untranslated_state") in ("home", "not_home") %}
             {{ state.state }}
           {% else %}
-             {{ state.state }}
+            v {{ state.state }}
           {% endif %}
         {% endif %}
 
@@ -62,29 +62,17 @@ responses:
         {% endif %}
 
       everybody: |
-        {% if not query.unmatched: %}
-          Da
+        {% if not query.unmatched %}
+            Da
         {% else %}
-          {% set no_match = query.unmatched | map(attribute="name") | sort | list %}
-          {% if no_match | length > 4 %}
-            Ne, {{ no_match[:3] | join(", ") }} in {{ (no_match | length - 3) }} niso
-            {% if state.attributes.get("untranslated_state") == "not_home" %}
-              {{ state.state }}
-            {% else %}
-              v {{ state.state }}
+            {% set no_match = query.unmatched | map(attribute="name") | sort | list %}
+            {% if no_match | length > 2 %}
+                Ne, {{ no_match[:-2] | join(", ") }} je, {{ no_match[-2] }} in {{ no_match[-1] }} pa sta odsotna{% if state.attributes.get("untranslated_state") == "not_home" %}, {{ state.state }}{% else %}{% endif %}
+            {% elif no_match | length == 2 %}
+                Ne, {{ no_match[0] }} je, {{ no_match[1] }} pa sta odsotna{% if state.attributes.get("untranslated_state") == "not_home" %}, {{ state.state }}{% else %}{% endif %}
+            {% elif no_match | length == 1 %}
+                Ne, {{ no_match[0] }} je {% if state.attributes.get("untranslated_state") == "not_home" %}, {{ state.state }}{% else %}{% endif %}, {{ no_match[0] }} pa ni odsoten{% if state.attributes.get("untranslated_state") == "not_home" %}, {{ state.state }}{% else %}{% endif %}
             {% endif %}
-          {%- else -%}
-            Ne,
-            {% for name in no_match -%}
-              {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} in {% endif -%}
-              {{ name }}
-            {%- endfor %} {% if no_match | length > 1 %}in{% else %}is{% endif %} ni
-            {% if state.attributes.get("untranslated_state") == "not_home" %}
-              {{ state.state }}
-            {% else %}
-               {{ state.state }}
-            {% endif %}
-          {% endif %}
         {% endif %}
 
       which: |

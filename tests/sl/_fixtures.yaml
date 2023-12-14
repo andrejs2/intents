@@ -255,13 +255,13 @@ entities:
       untranslated_state: "home"
   - name: "Arya"
     id: "person.arya"
-    state: "v službi"
+    state: "službi"
     attributes:
-      untranslated_state: "work"
+      untranslated_state: "v službi"
   - name: "Jon"
     id: "person.jon"
     state:
-      in: "proč"
+      in: "odsoten"
       out: "not_home"
     attributes:
       untranslated_state: "not_home"

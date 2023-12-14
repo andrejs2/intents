@@ -20,9 +20,16 @@ intents:
           domain: person
 
       - sentences:
-          - "[ali] so vsi [v|na ]{presence_states:state}"
+          - "[ali] so vsi [v|na] {presence_states:state}"
           - "[ali] so vsi  [v|na] {zone:state}"
         response: everybody
+        slots:
+          domain: person
+
+      - sentences:
+          - "ali je kdo [v|na] {presence_states:state}"
+          - "ali je kdo [v|na] {zone:state}"
+        response: any
         slots:
           domain: person
 
@@ -33,14 +40,14 @@ intents:
           domain: person
 
       - sentences:
-          - "kdo je [v |na ]{presence_states:state}"
-          - "kdo je [v|na] {zone:state}"
+          - "kdo [vse] je [v|na] {presence_states:state}"
+          - "kdo [vse] je [v|na] {zone:state}"
         response: who
         slots:
           domain: person
 
       - sentences:
-          - "koliko (oseb|ljudi) je [v |na ]{presence_states:state}"
+          - "koliko (oseb|ljudi) je [v|na] {presence_states:state}"
           - "koliko (oseb|ljudi) je [v|na] {zone:state}"
         response: how_many
         slots:

@@ -104,7 +104,7 @@ lists:
     values:
       - in: "doma"
         out: "home"
-      - in: "proč"
+      - in: "odsot(en|ni|na|nih)"
         out: "not_home"
 
   shopping_list_item:

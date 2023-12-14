@@ -35,7 +35,7 @@ tests:
       slots:
         domain: person
         name: Jon
-    response: "Jon je proč"
+    response: "Jon je odsoten"
 
   - sentences:
       - "ali je Jon v službi"
@@ -45,16 +45,16 @@ tests:
         domain: person
         name: Jon
         state: službi
-    response: "Ne, proč"
+    response: "Ne, odsoten"
 
   - sentences:
-      - "ali je Lev proč"
+      - "ali je Lev odsoten"
     intent:
       name: HassGetState
       slots:
         domain: person
         name: Lev
-        state: proč
+        state: odsoten
     response: "Ne, doma"
 
   - sentences:
@@ -76,7 +76,7 @@ tests:
     response: "Ne, Arya, Jon in Lev in ni doma"
 
   - sentences:
-      - "kdo je proč"
+      - "kdo je odsoten"
     intent:
       name: HassGetState
       slots:
@@ -94,13 +94,13 @@ tests:
     response: "Lev"
 
   - sentences:
-      - "ali so vsi proč"
+      - "ali so vsi odsotni"
     intent:
       name: HassGetState
       slots:
         domain: person
         state: not_home
-    response: "Ne, Arya in Lev in ni proč"
+    response: "Ne, Arya in Lev in ni odstoten"
 
   - sentences:
       - "kdo je v službi"
@@ -109,7 +109,7 @@ tests:
       slots:
         domain: person
         state: službi
-    response: "Nihče"
+    response: "Arya"
 
   - sentences:
       - "koliko oseb je doma"
@@ -127,13 +127,22 @@ tests:
       slots:
         domain: person
         state: službi
-    response: "0"
+    response: "1"
 
   - sentences:
-      - "koliko oseb je proč"
+      - "koliko oseb je odsotnih"
     intent:
       name: HassGetState
       slots:
         domain: person
         state: not_home
     response: "1"
+
+  - sentences:
+      - "ali je kdo doma"
+    intent:
+      name: HassGetState
+      slots:
+        domain: person
+        state: home
+    response: "Da, Lev"
